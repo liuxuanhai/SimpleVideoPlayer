@@ -1,0 +1,2 @@
+# SimpleVideoPlayer
+音视频播放器学习，利用MediaCodec实现一个最简单的视频播放器
