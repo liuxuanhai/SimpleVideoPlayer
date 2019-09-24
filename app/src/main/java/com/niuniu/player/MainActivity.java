@@ -13,7 +13,8 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener {
 
     private TextureView mTextureView;
-    private VideoDecoderThread mDecoder;
+    private VideoDecoderThread mVideoDecoder;
+    private AudioDecoderThread mAudioDecoder;
     private String path;
 
 
@@ -39,10 +40,14 @@ public class MainActivity extends AppCompatActivity implements TextureView.Surfa
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int i, int i1) {
         Surface surface = new Surface(surfaceTexture);
-        mDecoder = new VideoDecoderThread(surface);
-        mDecoder.setDataSource(getFileDesciptor());
-        mDecoder.prepare();
-        mDecoder.start();
+        mVideoDecoder = new VideoDecoderThread(surface);
+        mVideoDecoder.setDataSource(getFileDesciptor());
+        mVideoDecoder.prepare();
+        mAudioDecoder = new AudioDecoderThread();
+        mAudioDecoder.setDataSource(getFileDesciptor());
+        mAudioDecoder.prepare();
+        mVideoDecoder.start();
+        mAudioDecoder.start();
     }
 
     @Override
